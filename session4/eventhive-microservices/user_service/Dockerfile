@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . /app
 
-RUN pip install Flask requests
+RUN pip install Flask requests 
 
 EXPOSE 5001
 

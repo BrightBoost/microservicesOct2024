@@ -7,6 +7,7 @@ services:
       - POSTGRES_DB=event_db
     volumes:
       - event_db_data:/var/lib/postgresql/data
+      - ./db_init/event_db:/docker-entrypoint-initdb.d
     networks:
       - eventhive-network
   user_db:
@@ -23,6 +24,14 @@ services:
     build: ./event_service
     ports:
       - "5002:5002"
+    environment:
+      - DATABASE_USER=event_user
+      - DATABASE_PASSWORD=event_pass
+      - DATABASE_HOST=event_db   
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=event_db 
+    depends_on:
+      - event_db
     networks:
       - eventhive-network
   user_service:
